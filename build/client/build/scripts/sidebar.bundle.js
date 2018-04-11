@@ -20617,7 +20617,8 @@ var OAuthClient = function () {
     _classCallCheck(this, OAuthClient);
 
     this.$http = $http;
-    this.clientId = 'c37430be-01b1-11e8-abe2-a3a019665500';
+    this.clientId = '65f447f6-22f1-11e8-b7ea-3b8fad378121';
+    //this.clientId='a744a0f8-2223-11e8-8593-7f19ecf4815e';
     //this.clientId='f7c7d376-3725-11e8-9f78-d72cbae30d49';
     //this.clientId='13516846-22f9-11e8-a17a-3b1e3d4f317d';
     this.tokenEndpoint = config.tokenEndpoint;
