@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    {{! At the moment we use Angular's $location service in HTML5 mode with
+        html5Mode.requireBase left at its default value (true), so this is
+        required. In future we should be able to remove this. }}
+    <base href="/">
+  </head>
+  <body>
+    <hypothesis-app></hypothesis-app>
+
+    {{! The `js-hypothesis-settings` class can be removed once the client is
+        updated to include https://github.com/hypothesis/client/pull/243
+    }}
+    <script class="js-hypothesis-config js-hypothesis-settings" type="application/json">
+    {{&settings}}
+    </script>
+
+    <script src="/client/build/boot.js"></script>
+  </body>
+</html>

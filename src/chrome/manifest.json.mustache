@@ -1,0 +1,82 @@
+{
+  "name": "Hypothesis - Web & PDF Annotation",
+  "short_name": "Hypothesis",
+  "version": "{{ version }}",
+  "version_name": "{{ version }} ({{ versionName }})",
+  "manifest_version": 2,
+
+  {{#browserIsChrome}}
+  "minimum_chrome_version": "38",
+  {{/browserIsChrome}}
+
+  {{#key}}
+  "key": "{{{ key }}}",
+  {{/key}}
+
+  {{#browserIsFirefox}}
+  "applications": {
+    "gecko": {
+      {{! Firefox v48 is required for
+          https://bugzilla.mozilla.org/show_bug.cgi?id=1210583 }}
+      "strict_min_version": "48.0"
+    }
+  },
+  {{/browserIsFirefox}}
+
+  "description": "Collaboratively annotate, highlight, and tag web pages and PDF documents.",
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+
+  "homepage_url": "https://hypothes.is/",
+
+  {{! Firefox does not support the "split" mode.
+      See https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json/incognito
+  }}
+  {{#browserIsChrome}}
+  "incognito": "split",
+  {{/browserIsChrome}}
+
+  "options_ui": {
+    "page": "lib/options.html",
+    "chrome_style": true
+  },
+
+  "offline_enabled": false,
+  "permissions": [
+    "<all_urls>",
+
+    "storage",
+    "tabs"
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.google-analytics.com; object-src 'self'; font-src 'self' data:;",
+
+  "background": {
+    {{#browserIsChrome}}
+    "persistent": true,
+    {{/browserIsChrome}}
+    "scripts": [
+      "settings-data.js",
+      "client/build/scripts/raven.bundle.js",
+      "extension.bundle.js"
+    ]
+  },
+  "browser_action": {
+    "default_icon": {
+      "19": "images/browser-icon-inactive.png",
+      "38": "images/browser-icon-inactive@2x.png"
+    }
+  },
+  "web_accessible_resources": [
+    "client/*",
+    "content/*",
+    "lib/*",
+    "help/*",
+    "content/web/viewer.html"
+  ],
+  "externally_connectable": {
+    {{#bouncerUrl}}"matches": ["{{&bouncerUrl}}*"]{{/bouncerUrl}}
+  }
+}

@@ -1,0 +1,22 @@
+language: node_js
+node_js: '6.2'
+cache:
+  directories:
+    - node_modules
+script:
+  - npm test
+  - make SETTINGS_FILE=settings/chrome-prod.json dist/$(date +'%Y%m%d')-chrome-prod.zip
+  - make SETTINGS_FILE=settings/chrome-stage.json dist/$(date +'%Y%m%d')-chrome-stage.zip
+  - make SETTINGS_FILE=settings/firefox-prod.json dist/$(date +'%Y%m%d')-firefox-prod.xpi
+  - make SETTINGS_FILE=settings/firefox-stage.json dist/$(date +'%Y%m%d')-firefox-stage.xpi
+addons:
+  artifacts:
+    paths:
+      # Upload all built extension packages
+      - $(ls dist/*.zip dist/*.xpi | tr "\n" ":")
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: ./tools/deploy
+  on:
+    branch: master
